@@ -41,7 +41,7 @@ body {
     margin: 0.5rem 0;
     padding: 0.5rem;
     border: none;
-    border-radius: 5px;
+    border-radius: 5px; 
     background-color: #007BFF;
     color: #fff;
     cursor: pointer;
@@ -53,23 +53,14 @@ body {
     background-color: #0056b3;
 }
 
-
-@media screen and (max-width: 768px) {
-    .form-container {
-        flex-direction: column;
-        padding: 1rem;
-    }
-
-    .username-text {
-        margin-right: 0;
-        margin-bottom: 1rem;
-        font-size: 1.2rem;
-    }
-
-    .user-form input[type="text"],
-    .user-form input[type="submit"] {
-        width: 100%;
-    }
+.user-form select#sortParameter {
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    font-size: 1.2rem;
+    background: #fff;
 }
 
 #loading-screen {
@@ -196,6 +187,26 @@ body {
 }
 
 @media screen and (max-width: 768px) {
+    .form-container {
+        flex-direction: column;
+        padding: 1rem;
+    }
+
+    .username-text {
+        margin-right: 0;
+        margin-bottom: 1rem;
+        font-size: 1.2rem;
+    }
+
+    .user-form input[type="text"],
+    .user-form input[type="submit"] {
+        width: 100%;
+    }
+
+    .user-form select#sortParameter {
+        width: 100%;
+    }
+
     .anime-item {
         flex-direction: column;
     }

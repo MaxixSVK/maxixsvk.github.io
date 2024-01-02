@@ -2,13 +2,14 @@ window.addEventListener('DOMContentLoaded', () => {
   document.getElementById('username-form').addEventListener('submit', function (event) {
     event.preventDefault();
     const username = event.target.username.value;
+    const sortParameter = event.target.sortParameter.value;
     const animeItems = document.querySelectorAll('.anime-item');
     animeItems.forEach(item => item.remove());
 
     axios.post('https://graphql.anilist.co', {
       query: `
-      query ($username: String) {
-        MediaListCollection(userName: $username, type: ANIME, sort: STARTED_ON_DESC ) {
+      query ($username: String, $sort: [MediaListSort]) {
+        MediaListCollection(userName: $username, type: ANIME, sort: $sort ) {
           lists {
             entries {
               status
@@ -44,6 +45,7 @@ window.addEventListener('DOMContentLoaded', () => {
     `,
       variables: {
         username,
+        sort: sortParameter,
       },
     })
       .then(response => {

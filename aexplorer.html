@@ -13,6 +13,12 @@
         <p class="username-text"></p>
         <form id="username-form" class="user-form">
             <input type="text" id="username" name="username" placeholder="Username">
+            <select id="sortParameter" name="sortParameter" id="sortParameter">
+                <option value="MEDIA_TITLE_ENGLISH">Title</option>
+                <option value="SCORE_DESC">Score</option>
+                <option value="STARTED_ON_DESC">Started on</option>
+                <option value="FINISHED_ON_DESC">Finished on</option>
+            </select>
             <input type="submit" value="Submit">
         </form>
     </div>
@@ -24,7 +30,7 @@
     </div>
     <ul id="anime-list"></ul>
     <footer id="footer">
-        <p>Version: 0.0.3</p>
+        <p>Version: 0.0.4</p>
         <p>Made with ❤️ by: Maxix </p>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
