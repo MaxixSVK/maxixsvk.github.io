@@ -8,8 +8,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
     axios.post('https://graphql.anilist.co', {
       query: `
-      query ($username: String, $sort: [MediaListSort]) {
-        MediaListCollection(userName: $username, type: ANIME, sort: $sort ) {
+      query ($username: String) {
+        MediaListCollection(userName: $username, type: ANIME) {
           lists {
             entries {
               status
@@ -45,7 +45,6 @@ window.addEventListener('DOMContentLoaded', () => {
     `,
       variables: {
         username,
-        sort: sortParameter,
       },
     })
       .then(response => {
@@ -75,7 +74,33 @@ window.addEventListener('DOMContentLoaded', () => {
           listItem.appendChild(text);
           listItem.appendChild(progress);
           listItem.appendChild(image);
-          container.appendChild(listItem);
+
+          switch (anime.status) {
+            case 'CURRENT':
+              document.getElementById('anime-list-current').appendChild(listItem);
+              document.getElementById('anime-section-current').style.display = 'block';
+              break;
+            case 'PLANNING':
+              document.getElementById('anime-list-planning').appendChild(listItem);
+              document.getElementById('anime-section-planning').style.display = 'block';
+              break;
+            case 'COMPLETED':
+              document.getElementById('anime-list-completed').appendChild(listItem);
+              document.getElementById('anime-section-completed').style.display = 'block';
+              break;
+            case 'DROPPED':
+              document.getElementById('anime-list-dropped').appendChild(listItem);
+              document.getElementById('anime-section-dropped').style.display = 'block';
+              break;
+            case 'PAUSED':
+              document.getElementById('anime-list-paused').appendChild(listItem);
+              document.getElementById('anime-section-paused').style.display = 'block';
+              break;
+            case 'REPEATING':
+              document.getElementById('anime-list-repeating').appendChild(listItem);
+              document.getElementById('anime-section-repeating').style.display = 'block';
+              break;
+          }
 
           listItem.addEventListener('click', function () {
             showPopup(anime);
@@ -165,9 +190,9 @@ function showPopup(anime) {
 
   let overlay = document.createElement('div');
   overlay.id = 'overlay';
-  
+
   document.body.appendChild(overlay);
-  document.body.classList.add('no-scroll'); 
+  document.body.classList.add('no-scroll');
 
   document.body.appendChild(overlay);
 
@@ -283,9 +308,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
         let overlay = document.createElement('div');
         overlay.id = 'overlay';
-        
+
         document.body.appendChild(overlay);
-        document.body.classList.add('no-scroll'); 
+        document.body.classList.add('no-scroll');
 
         document.body.appendChild(overlay);
 
