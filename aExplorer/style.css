@@ -264,9 +264,34 @@ body {
     .popup-content p {
         margin-bottom: 1rem;
     }
-
 }
 
+@media screen and (min-resolution: 1.5dppx) and (min-width: 768px){
+    .popup-img {
+        height: 20rem;
+    }
+    .popup-data {
+        height: 20rem;
+    }
+    .popup-content {
+        height: 20rem;
+    }
+    .popup-content p {
+        margin-bottom: 0.5rem;
+    }
+    .popup-content h3 {
+        margin-bottom: 0.5rem;
+    }
+    .popup-content h1 {
+        margin-bottom: 0.5rem;
+    }
+    .popup {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        width: 80%;
+    }
+
+}
 
 #overlay {
     position: fixed;
