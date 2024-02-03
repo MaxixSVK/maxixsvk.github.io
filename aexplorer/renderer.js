@@ -6,54 +6,65 @@ window.addEventListener('DOMContentLoaded', () => {
     const animeItems = document.querySelectorAll('.anime-item');
     animeItems.forEach(item => item.remove());
 
-    axios.post('https://graphql.anilist.co', {
-      query: `
-      query ($username: String) {
-        MediaListCollection(userName: $username, type: ANIME) {
-          lists {
-            entries {
-              status
-              media {
-                title {
-                  english
-                  native
-                }
-                coverImage {
-                  extraLarge
-                }
-                bannerImage
-                episodes
-                description
+    document.getElementById('anime-section-all').style.display = 'none';
+    document.getElementById('anime-section-current').style.display = 'none';
+    document.getElementById('anime-section-planning').style.display = 'none';
+    document.getElementById('anime-section-completed').style.display = 'none';
+    document.getElementById('anime-section-dropped').style.display = 'none';
+    document.getElementById('anime-section-paused').style.display = 'none';
+    document.getElementById('anime-section-repeating').style.display = 'none';
+
+    const baseQuery = `
+    query ($username: String, $sort: [MediaListSort]) {
+      MediaListCollection(userName: $username, type: ANIME, sort: $sort) {
+        lists {
+          entries {
+            status
+            media {
+              title {
+                english
+                native
               }
-              
-              progress
-              startedAt {
-                year
-                month
-                day
+              coverImage {
+                extraLarge
               }
-              completedAt {
-                year
-                month
-                day
-              }
-              score
+              bannerImage
+              episodes
+              description
             }
+            progress
+            startedAt {
+              year
+              month
+              day
+            }
+            completedAt {
+              year
+              month
+              day
+            }
+            score
           }
         }
       }
-    `,
-      variables: {
-        username,
-      },
+    }
+    `;
+
+    const variables = {
+      username,
+      sort: sortParameter === 'DEFAULT' ? null : sortParameter,
+    };
+
+    axios.post('https://graphql.anilist.co', {
+      query: baseQuery,
+      variables,
     })
       .then(response => {
-        document.getElementById('loading-screen').style.display = 'none';
+        document.getElementById('main-screen').style.display = 'none';
         document.getElementById('footer').style.display = 'none';
         document.querySelector('.username-text').textContent = username;
 
         const animeList = response.data.data.MediaListCollection.lists.flatMap(list => list.entries);
-        const container = document.getElementById('anime-list');
 
         animeList.forEach(anime => {
           const listItem = document.createElement('li');
@@ -75,33 +86,37 @@ window.addEventListener('DOMContentLoaded', () => {
           listItem.appendChild(progress);
           listItem.appendChild(image);
 
-          switch (anime.status) {
-            case 'CURRENT':
-              document.getElementById('anime-list-current').appendChild(listItem);
-              document.getElementById('anime-section-current').style.display = 'block';
-              break;
-            case 'PLANNING':
-              document.getElementById('anime-list-planning').appendChild(listItem);
-              document.getElementById('anime-section-planning').style.display = 'block';
-              break;
-            case 'COMPLETED':
-              document.getElementById('anime-list-completed').appendChild(listItem);
-              document.getElementById('anime-section-completed').style.display = 'block';
-              break;
-            case 'DROPPED':
-              document.getElementById('anime-list-dropped').appendChild(listItem);
-              document.getElementById('anime-section-dropped').style.display = 'block';
-              break;
-            case 'PAUSED':
-              document.getElementById('anime-list-paused').appendChild(listItem);
-              document.getElementById('anime-section-paused').style.display = 'block';
-              break;
-            case 'REPEATING':
-              document.getElementById('anime-list-repeating').appendChild(listItem);
-              document.getElementById('anime-section-repeating').style.display = 'block';
-              break;
+          if (sortParameter !== 'DEFAULT') {
+            document.getElementById('anime-section-all').appendChild(listItem);
+            document.getElementById('anime-section-all').style.display = 'block';
+          } else {
+            switch (anime.status) {
+              case 'CURRENT':
+                document.getElementById('anime-list-current').appendChild(listItem);
+                document.getElementById('anime-section-current').style.display = 'block';
+                break;
+              case 'PLANNING':
+                document.getElementById('anime-list-planning').appendChild(listItem);
+                document.getElementById('anime-section-planning').style.display = 'block';
+                break;
+              case 'COMPLETED':
+                document.getElementById('anime-list-completed').appendChild(listItem);
+                document.getElementById('anime-section-completed').style.display = 'block';
+                break;
+              case 'DROPPED':
+                document.getElementById('anime-list-dropped').appendChild(listItem);
+                document.getElementById('anime-section-dropped').style.display = 'block';
+                break;
+              case 'PAUSED':
+                document.getElementById('anime-list-paused').appendChild(listItem);
+                document.getElementById('anime-section-paused').style.display = 'block';
+                break;
+              case 'REPEATING':
+                document.getElementById('anime-list-repeating').appendChild(listItem);
+                document.getElementById('anime-section-repeating').style.display = 'block';
+                break;
+            }
           }
-
           listItem.addEventListener('click', function () {
             showPopup(anime);
           });
@@ -109,9 +124,9 @@ window.addEventListener('DOMContentLoaded', () => {
       })
       .catch(error => {
         document.querySelector('.username-text').textContent = '';
-        document.getElementById('loading-screen').style.display = '';
+        document.getElementById('main-screen').style.display = '';
         document.getElementById('footer').style.display = '';
-        document.getElementById('loading-screen').innerHTML = `<h1>Error</h1><p>Cound\'t fetch data, please check username</p><p>${error}</p>`;
+        document.getElementById('main-screen').innerHTML = `<h1>Error</h1><p>Cound\'t fetch data, please check username</p><p>${error}</p>`;
 
       });
   });
@@ -272,7 +287,6 @@ window.addEventListener('DOMContentLoaded', () => {
         content.appendChild(imgDiv);
 
         const img = document.createElement('img');
-        //img.src = userData.avatar.large;
         img.classList.add('popup-img');
         imgDiv.appendChild(img);
 
