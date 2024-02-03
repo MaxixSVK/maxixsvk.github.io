@@ -64,7 +64,7 @@ body {
     background: #fff;
 }
 
-#loading-screen {
+#main-screen {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -77,7 +77,7 @@ body {
     z-index: 1000;
 }
 
-#loading-screen a {
+#main-screen a {
     color: #333;
     text-decoration: none;
 }

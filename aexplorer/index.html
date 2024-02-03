@@ -17,6 +17,7 @@
         <form id="username-form" class="user-form">
             <input type="text" id="username" name="username" placeholder="Username">
             <select id="sortParameter" name="sortParameter" id="sortParameter">
+                <option value="DEFAULT">Default</option>
                 <option value="MEDIA_TITLE_ENGLISH">Title</option>
                 <option value="SCORE_DESC">Score</option>
                 <option value="STARTED_ON_DESC">Started on</option>
@@ -25,11 +26,15 @@
             <input type="submit" value="Submit">
         </form>
     </div>
-    <div id="loading-screen">
+    <div id="main-screen">
         <h1>Welcome to aExplorer</h1>
         <p>UNOFFICIAL AniList explorer</p>
         <a href="https://github.com/MaxixSVK/anime-list-viewer">
         </a>
+    </div>
+    <div id="anime-section-all" class="anime-section">
+        <h2>Sorted</h2>
+        <ul id="anime-list-all"></ul>
     </div>
     <div id="anime-section-current" class="anime-section">
         <h2>Currently Watching</h2>
