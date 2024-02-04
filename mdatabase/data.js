@@ -6,9 +6,16 @@ fetch('https://api.npoint.io/ed7902bd1810c6dc7014')
             fetch(url).then(response => response.json())
         ))
             .then(dataArrays => {
+
+                // Create a new div for all content
+                const contentDiv = document.createElement('div');
+                contentDiv.id = 'content';
+                document.body.appendChild(contentDiv);
+
                 // Flatten dataArrays
                 const flattenedData = [].concat(...dataArrays);
                 flattenedData.forEach((data) => {
+
                     // Get the content div
                     const content = document.getElementById('content');
 
@@ -77,6 +84,7 @@ fetch('https://api.npoint.io/ed7902bd1810c6dc7014')
                     // Add the series div to the content div
                     content.appendChild(seriesDiv);
 
+                    // Add the event listener to the series info div
                     seriesInfoDiv.addEventListener('click', () => {
                         const books = seriesDiv.querySelectorAll('.book');
                         books.forEach(book => {
@@ -91,7 +99,7 @@ fetch('https://api.npoint.io/ed7902bd1810c6dc7014')
                     });
 
                     // Hide the loading text
-                    document.getElementById('loadingText').style.display = 'none';
+                    document.getElementById('spinner').style.display = 'none';
                 });
             })
             .catch(error => {

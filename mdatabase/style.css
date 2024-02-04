@@ -6,11 +6,12 @@
     transition: all 0.3s ease;
 }
 
-body {  
+html, body {  
     padding: 20px;
     background-color: #EDF1F5;
     color: #333333;
     line-height: 1.6;
+    height: 100%;
 }
 
 
@@ -30,13 +31,49 @@ body {
     color: #666666;
 }
 
-#loadingText {
+.spinner {
+    animation: rotator 1.4s linear infinite;
+    font-family: 'Arial', sans-serif;
+    width: 65px;
+    height: 65px;
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 2em;
-    font-family: 'Arial', sans-serif;
+    margin-top: -32.5px;
+    margin-left: -32.5px;
+    z-index: 1000;
+}
+
+@keyframes rotator {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(270deg); }
+}
+
+.path {
+    stroke-dasharray: 187;
+    stroke-dashoffset: 0;
+    transform-origin: center;
+    animation: dash 1.4s ease-in-out infinite, colors 5.6s ease-in-out infinite;
+}
+
+@keyframes colors {
+    0% { stroke: #4285F4; }
+    25% { stroke: #DE3E35; }
+    50% { stroke: #F7C223; }
+    75% { stroke: #1B9A59; }
+    100% { stroke: #4285F4; }
+}
+
+@keyframes dash {
+    0% { stroke-dashoffset: 187; }
+    50% {
+        stroke-dashoffset: 46.75;
+        transform:rotate(135deg);
+    }
+    100% {
+        stroke-dashoffset: 187;
+        transform:rotate(450deg);
+    }
 }
 
 #content {
