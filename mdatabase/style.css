@@ -2,11 +2,11 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Arial', sans-serif;
     transition: all 0.3s ease;
 }
 
-html, body {  
+body {  
     padding: 20px;
     background-color: #EDF1F5;
     color: #333333;
@@ -14,26 +14,24 @@ html, body {
     height: 100%;
 }
 
+#nav {
+    text-align: center;
+}
 
 #mainTitle {
-    text-align: center;
+    font-weight: bold;
     margin-bottom: 5px;
     font-size: 3em;
-    font-family: 'Arial', sans-serif;
-    color: #333333;
 }
 
 #mainDescription {
-    text-align: center;
     margin-bottom: 5px;
     font-size: 1.5em;
-    font-family: 'Arial', sans-serif;
     color: #666666;
 }
 
 .spinner {
     animation: rotator 1.4s linear infinite;
-    font-family: 'Arial', sans-serif;
     width: 65px;
     height: 65px;
     position: fixed;
@@ -74,6 +72,14 @@ html, body {
         stroke-dashoffset: 187;
         transform:rotate(450deg);
     }
+}
+
+#error {
+    color: #FF0000;
+    font-size: 1.5em;
+    text-align: center;
+    margin-top: 20px;
+
 }
 
 #content {
@@ -127,7 +133,7 @@ html, body {
     display: none; 
 }
 
-#content div:hover {
+.chapter:hover {
     box-shadow: 0px 5px 25px 0px rgba(0,0,0,0.1);
     transform: translateY(-5px);
 }
@@ -150,7 +156,7 @@ html, body {
     position: fixed;
     right: 0;
     bottom: 0;
-    width: 29rem;
+    width: 23rem;
     height: auto;
 }
 
@@ -160,13 +166,13 @@ html, body {
         padding: 10px;
     }
 
-    #content {
-        width: 100%;
-        padding: 10px;
+    #nav {
+        margin: 0.7rem;
     }
 
-    #content div {
-        padding: 10px;
+    #content {
+        width: 100%;
+        padding: 0px;
     }
 
     #remImg {
