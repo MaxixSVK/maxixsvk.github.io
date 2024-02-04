@@ -1,14 +1,26 @@
 // Fetch all the data from the API and display it on the page
 fetch('https://api.npoint.io/ed7902bd1810c6dc7014')
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+    })
     .then(urls => {
         Promise.all(urls.map(url =>
             fetch(url).then(response => response.json())
         ))
             .then(dataArrays => {
+
+                // Create a new div for all content
+                const contentDiv = document.createElement('div');
+                contentDiv.id = 'content';
+                document.body.appendChild(contentDiv);
+
                 // Flatten dataArrays
                 const flattenedData = [].concat(...dataArrays);
                 flattenedData.forEach((data) => {
+
                     // Get the content div
                     const content = document.getElementById('content');
 
@@ -77,6 +89,7 @@ fetch('https://api.npoint.io/ed7902bd1810c6dc7014')
                     // Add the series div to the content div
                     content.appendChild(seriesDiv);
 
+                    // Add the event listener to the series info div
                     seriesInfoDiv.addEventListener('click', () => {
                         const books = seriesDiv.querySelectorAll('.book');
                         books.forEach(book => {
@@ -91,10 +104,24 @@ fetch('https://api.npoint.io/ed7902bd1810c6dc7014')
                     });
 
                     // Hide the loading text
-                    document.getElementById('loadingText').style.display = 'none';
+                    document.getElementById('spinner').style.display = 'none';
                 });
             })
             .catch(error => {
-                console.error('Error:', error);
+                // Create a new div for the error message
+                const errorDiv = document.createElement('div');
+                errorDiv.id = 'error';
+                const error1 = document.createElement('p');
+                error1.innerHTML = 'An error occurred while fetching the data';
+                errorDiv.appendChild(error1);
+                const error2 = document.createElement('p');
+                error2.innerHTML = 'Reloading the page in 5 seconds...';
+                errorDiv.appendChild(error2);
+                document.body.appendChild(errorDiv);
+
+                // Reload the page after 5 seconds
+                setTimeout(function () {
+                    location.reload();
+                }, 5000);
             });
     });

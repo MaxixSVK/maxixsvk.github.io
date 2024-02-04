@@ -2,7 +2,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Arial', sans-serif;
     transition: all 0.3s ease;
 }
 
@@ -11,32 +11,75 @@ body {
     background-color: #EDF1F5;
     color: #333333;
     line-height: 1.6;
+    height: 100%;
 }
 
+#nav {
+    text-align: center;
+}
 
 #mainTitle {
-    text-align: center;
+    font-weight: bold;
     margin-bottom: 5px;
     font-size: 3em;
-    font-family: 'Arial', sans-serif;
-    color: #333333;
 }
 
 #mainDescription {
-    text-align: center;
     margin-bottom: 5px;
     font-size: 1.5em;
-    font-family: 'Arial', sans-serif;
     color: #666666;
 }
 
-#loadingText {
+.spinner {
+    animation: rotator 1.4s linear infinite;
+    width: 65px;
+    height: 65px;
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 2em;
-    font-family: 'Arial', sans-serif;
+    margin-top: -32.5px;
+    margin-left: -32.5px;
+    z-index: 1000;
+}
+
+@keyframes rotator {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(270deg); }
+}
+
+.path {
+    stroke-dasharray: 187;
+    stroke-dashoffset: 0;
+    transform-origin: center;
+    animation: dash 1.4s ease-in-out infinite, colors 5.6s ease-in-out infinite;
+}
+
+@keyframes colors {
+    0% { stroke: #4285F4; }
+    25% { stroke: #DE3E35; }
+    50% { stroke: #F7C223; }
+    75% { stroke: #1B9A59; }
+    100% { stroke: #4285F4; }
+}
+
+@keyframes dash {
+    0% { stroke-dashoffset: 187; }
+    50% {
+        stroke-dashoffset: 46.75;
+        transform:rotate(135deg);
+    }
+    100% {
+        stroke-dashoffset: 187;
+        transform:rotate(450deg);
+    }
+}
+
+#error {
+    color: #FF0000;
+    font-size: 1.5em;
+    text-align: center;
+    margin-top: 20px;
+
 }
 
 #content {
@@ -90,7 +133,7 @@ body {
     display: none; 
 }
 
-#content div:hover {
+.chapter:hover {
     box-shadow: 0px 5px 25px 0px rgba(0,0,0,0.1);
     transform: translateY(-5px);
 }
@@ -113,7 +156,7 @@ body {
     position: fixed;
     right: 0;
     bottom: 0;
-    width: 29rem;
+    width: 23rem;
     height: auto;
 }
 
@@ -123,13 +166,13 @@ body {
         padding: 10px;
     }
 
-    #content {
-        width: 100%;
-        padding: 10px;
+    #nav {
+        margin: 0.7rem;
     }
 
-    #content div {
-        padding: 10px;
+    #content {
+        width: 100%;
+        padding: 0px;
     }
 
     #remImg {
