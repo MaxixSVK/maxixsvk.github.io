@@ -3,7 +3,7 @@ const contentDiv = document.createElement('div');
 contentDiv.id = 'content';
 document.body.appendChild(contentDiv);
 
-fetch('http://135.125.224.67:26987/data')
+fetch('https://api.npoint.io/76c5d2d36067d7aff420')
     .then(response => response.json())
     .then(data => {
         data.forEach(series => {
