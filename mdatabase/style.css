@@ -159,6 +159,12 @@ body {
     width: 23rem;
     height: auto;
 }
+    
+@media (min-resolution: 1.1dppx) {
+    #remImg {
+        display: none;
+    }
+}
 
 /* Mobile styles */
 @media (max-width: 768px) {
