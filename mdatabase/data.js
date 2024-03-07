@@ -41,8 +41,8 @@ fetch('https://api.npoint.io/76c5d2d36067d7aff420', {
                 bookDiv.classList.add('book');
                 bookDiv.style.display = 'none';
                 bookDiv.innerHTML = `<h2><span class="chevron">&#9654;</span> ${book.name ? book.name : 'No data'}</h2>
-    <p>Started Reading: ${book.startedReading ? book.startedReading : 'No data'}</p>
-    <p>Ended Reading: ${book.endedReading ? book.endedReading : 'No data'}</p>`;
+    <p>Started reading: ${book.startedReading ? book.startedReading : 'No data'}</p>
+    <p>Finished reading: ${book.endedReading ? book.endedReading : 'No data'}</p>`;
                 book.chapters.forEach(chapter => {
                     const chapterDiv = document.createElement('div');
                     chapterDiv.classList.add('chapter');
